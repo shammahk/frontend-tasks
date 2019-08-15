@@ -21,41 +21,53 @@
         </div>
         <div class="flex" style="gap: 1rem" role="pagination">
             <!-- add buttons here -->
+            <button class="rounded w-8 h-8 bg gray-300">1</button>
+            <button class="rounded w-8 h-8 bg gray-300">2</button>
+            <button class="rounded w-8 h-8 bg gray-300">3</button>
+            <button class="rounded w-8 h-8 bg gray-300">4</button>
         </div>
     </main>
     <script>
-        const changePost = () => {
+        const changePost = (post_id) => {
             const url = 'https://jsonplaceholder.typicode.com/posts'
-            const postUrl = `${url}/${post_id}`
+            const postUrl = `${url}/${post_id}`;
 
-            fetch() // enter postUrl here
-                .then(res => ) // convert response here
-                .then() //added replaceContent here
+            console.log('change post works');
+
+            fetch(postUrl) // enter postUrl here
+                .then(res => res.json()) // convert response here
+                .then(data => replaceContent(data)) //added replaceContent here
         }
 
         const replaceContent = ({
             title,
             body
         }) => {
+            const heading = document.querySelector(" .heading");
+            const para = document.querySelector(".para");
 
+            heading.textContent = title;
+            para.textContent = body;
         }
 
         const activateButtons = () => {
             // define buttons variable here
-
+            const buttons = document.querySelectorAll("button");
             //loops through the buttons
             buttons.forEach((button, i) => {
                 const index = i + 1; // index variable
                 button.addEventListener('click', () => {
-
+                    console.log('buttons work');
+                    changePost(index);
                 })
             })
         }
 
         const startApp = () => {
-            activateButtons()
+            activateButtons();
+            console.log('start app works');
         }
-        startApp()
+        startApp();
     </script>
 </body>
 
