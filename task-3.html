@@ -55,6 +55,16 @@
         }
 
         // add activeDeleteButton function here
+        const activeDeleteButton = (listEl, doAfterDelete) => {
+            const deleteButton = listEl.querySelector('button[role=delete]');
+            deleteButton.addEventListener('click', () => {
+                listEl.classList.add('hide__self');
+                setTimeout(() => {
+                    listEl.outerHTML = '' ;
+                    doAfterDelete();
+                }, 1000);
+            });
+        }
 
         const createList = (phone_name) => {
             // NB: Virtual Elements don't exist in DOM after creation. 
@@ -79,6 +89,7 @@
             }
             activeToggleButton(listEl);
             // invoke `activeDeleteButton` here.
+            activeDeleteButton(listEl, onDelete);
 
             return listEl
         }
@@ -105,6 +116,11 @@
         }
 
         // add startApp function here
+        const startApp = () => {
+            const refreshButton = document.querySelector('[role=refresh]');
+            refreshButton.addEventListener('click' , refreshList);
+            refreshButton.click();
+        }
 
         // call startApp
         startApp()
