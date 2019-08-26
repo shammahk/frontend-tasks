@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Task 4: Moving </title>
-    <link rel="stylesheet" href="css/base.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Task 4: Moving </title>
+        <link rel="stylesheet" href="css/base.css">
+    </head>
 
-<body>
-    <main class="flex justify-center min-h-screen">
-        <div class="container mx-auto py-20 flex">
-            <section class="flex-1">
-                <div class="flex justify-between mb-5">
-                    <hgroup>
-                        <h1 class="text-3xl mb-0">Highend Phones</h1>
-                        <h5 class="mt-0 font-sans"></h5>
-                    </hgroup>
-                    <button role="refresh" class="appearance-none py-2 px-4 border border-gray rounded-full font-sans">REFRESH</button>
-                </div>
-                <!-- add form here -->
-                <form id="insert-form" class="flex">
-                    <input type="text" placeholder="Add a phone model" class="flex-1 border border-gray-500 p-2 pl-5"/>
-                    <button class="px-4 appearance-none hover:bg-gray-200 border border-gray-900">INSERT</button>
-                </form>
-                <ul class="list-holder p-0">
-                </ul>
-            </section>
-            <section class="flex-1 ml-10 border border-gray-200 p-5">
-                <div class="flex justify-between mb-5">
-                    <h1>SOLD PHONES</h1>
-                </div>
-                <ul class="sold-list-holder p-0">
-                </ul>
-            </section>
-        </div>
-    </main>
+    <body>
+        <main class="flex justify-center min-h-screen">
+            <div class="container mx-auto py-20 flex">
+                <section class="flex-1">
+                    <div class="flex justify-between mb-5">
+                        <hgroup>
+                            <h1 class="text-3xl mb-0">Highend Phones</h1>
+                            <h5 class="mt-0 font-sans"></h5>
+                        </hgroup>
+                        <button role="refresh" class="appearance-none py-2 px-4
+                            border border-gray rounded-full font-sans">REFRESH</button>
+                    </div>
+                    <!-- add form here -->
+                    <form id="insert-form" class="flex">
+                        <input type="text" placeholder="Add a phone model"
+                            class="flex-1 border border-gray-500 p-2 pl-5" />
+                        <button class="px-4 appearance-none hover:bg-gray-200
+                            border border-gray-900">INSERT</button>
+                    </form>
+                    <ul class="list-holder p-0">
+                    </ul>
+                </section>
+                <section class="flex-1 ml-10 border border-gray-200 p-5">
+                    <div class="flex justify-between mb-5">
+                        <h1>SOLD PHONES</h1>
+                    </div>
+                    <ul class="sold-list-holder p-0">
+                    </ul>
+                </section>
+            </div>
+        </main>
 
-    <script>
+        <script>
         const PhoneHolder = {
             soldPhones: [],
             phones: [
@@ -177,8 +180,9 @@
             var formInput = $('#insert-form input');
 
             form.addEventListener('submit', (event) => {
-                // var newPhone = formInput.value;
-                const phones = PhoneHolder.get(formInput.value);
+                var newPhone = formInput.value;
+                const phones = PhoneHolder.get();
+                phones.push(newPhone);
                 PhoneHolder.set(phones);
                 formInput.value = '';
                 refreshList();
@@ -198,6 +202,6 @@
 
         startApp()
     </script>
-</body>
+    </body>
 
 </html>
