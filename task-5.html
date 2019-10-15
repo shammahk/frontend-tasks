@@ -105,12 +105,12 @@
             })
         }
 
-        const createList = (phone_name) => {
+        const createList = (phoneObject) => {
             // NB: Virtual Elements don't exist in DOM after creation. 
             const listEl = document.createElement('li');
             listEl.classList.add('fancy__list');
             listEl.innerHTML = `
-                <div class="text">${phone_name}</div>
+                <div class="text">${phoneObject.name}, quantity: ${phoneObject.quantity}</div>
                 <button class="toggle-btn">&lt;</button>
                 <button class="bg-teal-200" role="add-to-sold">+</button>
                 <button class="bg-orange-200">-</button>
@@ -119,7 +119,7 @@
             const onDelete = () => {
                 const existingPhones = [];
                 for (let phone of PhoneHolder.get()) {
-                    if (phone !== phone_name) {
+                    if (phone !== phoneObject.name) {
                         existingPhones.push(phone);
                     }
                 }
@@ -159,6 +159,17 @@
             // call addToList here
             addToList(phoneList, '.list-holder');
             addToList(soldList, '.sold-list-holder');
+        }
+
+        const fetchPhones = () => {
+            showPreloader();
+            fetch(PHONES_ENDPOINT)
+            .then(res => res.json())
+            .then(response => {
+                PhoneHolder.set(response.phones);
+                hidePreloader();
+                refreshList();
+            })
         }
 
         // add movePhoneToSold() here from the previous task
