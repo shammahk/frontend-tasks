@@ -41,6 +41,8 @@
     </main>
 
     <script>
+        let $ = (ele) => document.querySelector(ele);
+
         const preload = () => {
             const preloader = document.querySelector('[data-preload]')
             setInterval(() => {
@@ -128,7 +130,7 @@
             }
             activeToggleButton(listEl);
             activeDeleteButton(listEl, onDelete);
-            // activateAddButton(listEl, phone_name);
+            activateAddButton(listEl, phoneObject);
 
             return listEl
         }
@@ -173,10 +175,47 @@
         }
 
         // add movePhoneToSold() here from the previous task
+        const movePhoneToSold = (phone_name) => {
+            var filterPhones = [];
+            for (let phone of PhoneHolder.get()) {
+                if (phone !== phone_name) {
+                    filterPhones.push(phone);
+                }
+            }
+
+            PhoneHolder.set(filterPhones);
+            var soldList = PhoneHolder.getSold();
+            soldList.push(phone_name);
+            PhoneHolder.getSold(soldList);
+            refreshList();
+        }
+        
         
         // add the activeAddButton() here from the previous task
+        const activateAddButton = (listEl, model) => {
+            var addButton = listEl.querySelector('[role=add-to-sold]');
+            addButton.addEventListener('click', () => {
+                movePhoneToSold(model);
+            })
+        }
 
         // add the activateInsertForm() here from the previous task
+        const activateInsertForm = () => {
+            var form = $('#insert-form');
+            var formInput = $('#insert-form input');
+
+            form.addEventListener('submit', (event) => {
+                var newPhone = formInput.value;
+                const phones = PhoneHolder.get();
+                phones.push(newPhone);
+                PhoneHolder.set(phones);
+                formInput.value = '';
+                refreshList();
+                event.preventDefault();
+
+            console.log(form, formInput);
+            })
+        }
 
         const startApp = () => {
             const refreshButton = document.querySelector('[role=refresh]')
